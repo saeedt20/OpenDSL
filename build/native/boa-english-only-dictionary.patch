@@ -1,0 +1,118 @@
+--- a/apps/public/boa-asp/src/asp/parsers.c
++++ b/apps/public/boa-asp/src/asp/parsers.c
+@@ -287,82 +287,14 @@
+ 	char str_path[PATH_LENGTH] = {0};
+ 	char stream[MAX_STREAM] = {0};
+ 	char str_key[MAX_KEY] = {0};
+-	char	str_type[4] = {0};
+-	int	nIndex = 0;
+ 	uint	offset = 0;
+ 	HASH	s_hash;
+ 	SParser	s_parse_tmp;
+ 
+-	//Andy Chiu, 2015/03/03. retry for cfg_manager restart scoket issue.
+-	int res = 0, i;
+-	for(i = 0; i < 5; ++i)
+-	{
+-		res = tcapi_get("LanguageSwitch_Entry", "Type", str_type);
+-		if(!res && strlen(str_type) > 0 )
+-			break;
+-		sleep(1);
+-	}
+-	
+-	if (strlen(str_type))
+-		nIndex = atoi(str_type);
+-
+-	if(nIndex == 0)
+-	{
+-		for(i = 0; i < 5; ++i)
+-		{
+-			memset(str_type, 0, sizeof(str_type));
+-			res = tcapi_get("WebCurSet_Entry", "detected_lang_type", str_type);
+-			if(!res && strlen(str_type) > 0 )
+-				break;
+-			sleep(1);
+-		}
+-		if (strlen(str_type))
+-			nIndex = atoi(str_type);
+-	}
+-
+-	init_flag = nIndex;
+-	closefp();//close file pointer at first
+-	
+-	if(nIndex == 1) //English
+-		sprintf(str_path, STRING_PATH, "EN");
+-	else if(nIndex == 2) //Brazil
+-		sprintf(str_path, STRING_PATH, "BR");
+-	else if(nIndex == 3) //Simplified Chinese
+-		sprintf(str_path, STRING_PATH, "CN");
+-	else if(nIndex == 4) //Cesky
+-		sprintf(str_path, STRING_PATH, "CZ");
+-	else if(nIndex == 5) //Dansk
+-		sprintf(str_path, STRING_PATH, "DA");
+-	else if(nIndex == 6) //Deutsch
+-		sprintf(str_path, STRING_PATH, "DE");
+-	else if(nIndex == 7) //Espanol
+-		sprintf(str_path, STRING_PATH, "ES");
+-	else if(nIndex == 8) //Finsk
+-		sprintf(str_path, STRING_PATH, "FI");
+-	else if(nIndex == 9) //Francais
+-		sprintf(str_path, STRING_PATH, "FR");
+-	else if(nIndex == 10) //Italiano
+-		sprintf(str_path, STRING_PATH, "IT");
+-	else if(nIndex == 11) //Malay
+-		sprintf(str_path, STRING_PATH, "MS");
+-	else if(nIndex == 12) //Norsk
+-		sprintf(str_path, STRING_PATH, "NO");
+-	else if(nIndex == 13) //Polski
+-		sprintf(str_path, STRING_PATH, "PL");
+-	else if(nIndex == 14) //Russian
+-		sprintf(str_path, STRING_PATH, "RU");
+-	else if(nIndex == 15) //Svensk
+-		sprintf(str_path, STRING_PATH, "SV");
+-	else if(nIndex == 16) //Thai
+-		sprintf(str_path, STRING_PATH, "TH");
+-	else if(nIndex == 17) //Turkey
+-		sprintf(str_path, STRING_PATH, "TR");
+-	else if(nIndex == 18) //Traditional Chinese
+-		sprintf(str_path, STRING_PATH, "TW");
+-	else if(nIndex == 19) //Ukraine
+-		sprintf(str_path, STRING_PATH, "UK");
+-	else
+-		sprintf(str_path, STRING_PATH, "EN");
++	/* OpenDSL ships one dictionary; keep persisted settings untouched. */
++	init_flag = 1;
++	closefp();
++	snprintf(str_path, sizeof(str_path), STRING_PATH, "EN");
+ 
+ #ifdef RTCONFIG_ODMPID
+ 	file_2odmpid(str_path);
+@@ -428,24 +360,7 @@
+ }
+ int	islangChanged(void)
+ {
+-	char	str_type[4] = {0};
+-	int	nIndex = 0;
+-
+-	tcapi_get("LanguageSwitch_Entry", "Type", str_type);
+-	if (strlen(str_type))
+-		nIndex = atoi(str_type);
+-	if(nIndex == 0)
+-	{
+-		memset(str_type, 0, sizeof(str_type));
+-		tcapi_get("WebCurSet_Entry", "detected_lang_type", str_type);
+-		if (strlen(str_type))
+-			nIndex = atoi(str_type);
+-	}
+-
+-	//tcdbg_printf("\r\n*** islangChanged - atoi(str_type): [%d]\n", atoi(str_type));
+-	if (nIndex != init_flag)
+-		return 1;
+-	else
+-		return 0;
+-}
+-#endif
++	/* A saved language or browser header must not reload a removed file. */
++	return 0;
++}
++#endif

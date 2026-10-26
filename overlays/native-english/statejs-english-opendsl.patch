@@ -1,0 +1,101 @@
+--- a/boaroot/html/state.js	2019-06-29 01:41:39.000000000 +0430
++++ b/boaroot/html/state.js	2026-10-19 00:55:33.241845970 +0330
+@@ -345,7 +345,7 @@
+ banner_code +='<input type="hidden" name="DipConnFlag" value="0">\n';
+ banner_code +='<input type="hidden" name="ModemConnFlag" value="0">\n';
+ banner_code +='</form>\n';
+-banner_code +='<div class="banner1" align="center"><img src="/images/New_ui/asustitle.png" width="218" height="54" align="left">\n';
++banner_code +='<div class="banner1" align="center"><span style="float:left;width:218px;height:54px;line-height:54px;font-size:26px;font-weight:600;letter-spacing:1px;color:#8ec5ff;text-shadow:0 0 10px rgba(96,170,255,.30);text-align:left;">OpenDSL</span>\n';
+ banner_code +='<div style="margin-top:13px;margin-left:-90px;*margin-top:0px;*margin-left:0px;" align="center"><span class="modelName_top"><%tcWebApi_get("String_Entry","Web_Title2","s")%></span></div>';
+ 
+ banner_code +='<form method="post" name="canceldiagForm" action="/stop_dsl_diag.asp" target="hidden_frame">\n';
+@@ -358,37 +358,11 @@
+ 
+ banner_code +='<ul class="navigation"><a href="#">';
+ banner_code +='<li><dl><dt id="selected_lang"></dt>\n';
+-
+-if(is_UK_sku){
+-	banner_code +='<dd><a onclick="submit_language(1)" id="EN">English</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(12)" id="NO">Norsk</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(8)" id="FI">Suomi</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(5)" id="DA">Dansk</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(15)" id="SV">Svensk</a></dd>\n'
+-}
+-else{ //EU, WE support all langs (19)
+-	banner_code +='<dd><a onclick="submit_language(1)" id="EN">English</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(18)" id="TW">繁體中文</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(3)" id="CN">简体中文</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(4)" id="CZ">Česky</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(13)" id="PL">Polski</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(14)" id="RU">Pусский</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(6)" id="DE">Deutsch</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(9)" id="FR">Français</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(17)" id="TR">Türkçe</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(16)" id="TH">ไทย</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(11)" id="MS">Malay</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(12)" id="NO">Norsk</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(8)" id="FI">Suomi</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(5)" id="DA">Dansk</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(15)" id="SV">Svensk</a></dd>\n'
+-	banner_code +='<dd><a onclick="submit_language(2)" id="BR">Português(Brazil)</a></dd>\n';
+-	//banner_code +='<dd><a onclick="submit_language(this)" id="JP">日本語</a></dd>\n'
+-	banner_code +='<dd><a onclick="submit_language(7)" id="ES">Español</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(10)" id="IT">Italiano</a></dd>\n';
+-	banner_code +='<dd><a onclick="submit_language(19)" id="UK">Український</a></dd>\n';
+-}	
+-	
++/*
++OpenDSL: English-only interface. Foreign-language menu entries were removed;
++the Boa loader always opens EN.dict (0004-boa-english-only-dictionary.patch)
++and userfs/ carries only EN.dict.
++*/
+ banner_code +='</dl></li>\n';
+ banner_code +='</a></ul>';
+ banner_code +='</div>\n';
+@@ -625,7 +599,7 @@
+ tablink[7] = new Array("", "Advanced_System_Content.asp", "Advanced_FirmwareUpgrade_Content.asp", "Advanced_SettingBackup_Content.asp", "Advanced_PerformanceTuning_Content.asp", "Advanced_ADSL_Content.asp", "Advanced_Feedback.asp", "Advanced_CWMP_Content.asp", "Advanced_TR069_Content.asp", "Advanced_Privacy.asp");
+ tablink[8] = new Array("", "Main_LogStatus_Content.asp", "Main_WStatus_Content.asp", "Main_DHCPStatus_Content.asp", "Main_RouteStatus_Content.asp", "Main_IPTStatus_Content.asp", "Main_AdslStatus_Content.asp", "Main_ConnStatus_Content.asp", "Main_AccessLog_Content.asp");
+ tablink[9] = new Array("", "Main_Analysis_Content.asp", "Main_Netstat_Content.asp", "Main_WOL_Content.asp");
+-tablink[10] = new Array("", "QoS_EZQoS.asp", "Main_TrafficMonitor_realtime.asp", "Main_WebHistory_Content.asp", "Main_Spectrum_Content.asp", "Main_TrafficMonitor_last24.asp", "Main_TrafficMonitor_daily.asp", "Advanced_QOSUserPrio_Content.asp", "Advanced_QOSUserRules_Content.asp");
++tablink[10] = new Array("", "QoS_EZQoS.asp", "Main_TrafficMonitor_realtime.asp", "Main_WebHistory_Content.asp", "Main_Spectrum_Content.asp", "Advanced_QOSUserPrio_Content.asp", "Advanced_QOSUserRules_Content.asp");
+ tablink[11] = new Array("");
+ 
+ if(bwdpi_support != -1){
+@@ -638,11 +612,11 @@
+ 
+ if(bwdpi_support != -1){
+ 	menuL1_title = new Array("", "<%tcWebApi_get("String_Entry","menu1","s")%>", "<%tcWebApi_get("String_Entry","Guest_Network","s")%>", "<%tcWebApi_get("String_Entry","Menu_TrafficManager","s")%>", "<%tcWebApi_get("String_Entry","AiProtection_title","s")%>", "<%tcWebApi_get("String_Entry","Menu_usb_application","s")%>", "<%tcWebApi_Get("String_Entry", "AiCloud_Title","s")%>", "<%tcWebApi_get("String_Entry","menu5","s")%>");
+-	menuL1_link = new Array("", "index2.asp", "Guest_network.asp", "QoS_EZQoS.asp", "AiProtection_HomeProtection.asp", "APP_Installation.asp", "cloud_main.asp", "");
++	menuL1_link = new Array("", "OpenDSL.asp", "Guest_network.asp", "QoS_EZQoS.asp", "AiProtection_HomeProtection.asp", "APP_Installation.asp", "cloud_main.asp", "");
+ }
+ else {
+ 	menuL1_title = new Array("", "<%tcWebApi_get("String_Entry","menu1","s")%>", "<%tcWebApi_get("String_Entry","Guest_Network","s")%>", "<%tcWebApi_get("String_Entry","Menu_TrafficManager","s")%>", "<%tcWebApi_get("String_Entry","Parental_Control","s")%>", "<%tcWebApi_get("String_Entry","Menu_usb_application","s")%>", "<%tcWebApi_Get("String_Entry", "AiCloud_Title","s")%>", "<%tcWebApi_get("String_Entry","menu5","s")%>");
+-	menuL1_link = new Array("", "index2.asp", "Guest_network.asp", "QoS_EZQoS.asp", "ParentalControl.asp", "APP_Installation.asp", "cloud_main.asp", "");
++	menuL1_link = new Array("", "OpenDSL.asp", "Guest_network.asp", "QoS_EZQoS.asp", "ParentalControl.asp", "APP_Installation.asp", "cloud_main.asp", "");
+ }
+ 
+ var calculate_height = menuL1_link.length+tablink.length-3;
+@@ -2847,7 +2821,10 @@
+ }
+ 
+ function show_selected_language(){
+-var lang_flag = get_preferred_lang_type();
++/*OpenDSL: English-only interface; the saved language choice is not applied.*/
++	$('selected_lang').innerHTML = "English";
++	return;
++if(false){var lang_flag = get_preferred_lang_type();
+ 	switch(lang_flag){
+ 		case '1':{
+ 			$('selected_lang').innerHTML = "English";
+@@ -2946,8 +2923,11 @@
+ 		}
+ 	}
+ }
++}
+ 
+ function get_selected_language(){
++/*OpenDSL: English-only interface; support-site links use the English variant.*/
++	return "/";
+ var lang_flag = get_preferred_lang_type();
+ 	switch(lang_flag){
+ 		case '1':{	//EN

@@ -1,0 +1,185 @@
+{
+  "status": "English-only state.js selector with OpenDSL branding, plus review-A02 traffic-history retirement: the two retired native history views and both native update endpoints are replaced by immediate producer-independent responses (rstats stays disabled); navigation links removed; the realtime monitor no longer offers the retired views (review C05). Review C06: the Quick Internet Setup wizard is branded OpenDSL (banner text, page titles, finish-page registration hint, favicon).",
+  "pack_subtree": "boaroot",
+  "extra_pack_subtree": "userfs",
+  "generator": "tools/make_native_english.py",
+  "review_patch": "statejs-english-opendsl.patch",
+  "changed_behaviour": [
+    "header Asus title image replaced with OpenDSL text branding",
+    "19-entry foreign-language menu replaced with a static English entry",
+    "show_selected_language always displays English",
+    "get_selected_language always returns the English support-site path",
+    "Shared OpenDSL CSS on native HTML documents; title-only branding; setup completion/skip and first-level overview links go to OpenDSL.asp",
+    "Five bounded EN.dict display values: QIS_pass_desc1, not_support_script, WC11b_x_Phrase_in, FW_desc0, FW_n2; keys unchanged"
+  ],
+  "untouched": [
+    "titleForm/start_apply hidden field contract",
+    "logout/reboot/LanguageChange function definitions and targets",
+    "productid/odm_productid device identifiers",
+    "isNewFW version-comparison logic and upgrade identifiers",
+    "WAN-host (isFromWAN) sanitiser"
+  ],
+  "host_checks": {
+    "node_syntax_after_template_strip": "both files pass",
+    "foreign_entries_removed": true,
+    "patch_is_bounded_diff": true
+  },
+  "no_device_access": true,
+  "files": [
+    {
+      "path": "boaroot/html/state.js",
+      "size": 121974,
+      "sha256": "1091724951129bb04cdc8d6cd71992ddd3450903595a802905d31b0089ee4f84"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_TrafficMonitor_daily.asp",
+      "size": 1084,
+      "sha256": "59359a9881d78d32e594004a0461977a93dd5818b2e4dcc6a6651261a23d20d4"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_TrafficMonitor_last24.asp",
+      "size": 1092,
+      "sha256": "96d2dd13af5f054fd2d76bd2c25a4290a9a71b0ca195c702612a050923c2b520"
+    },
+    {
+      "path": "boaroot/cgi-bin/updateBandwidth.asp",
+      "size": 563,
+      "sha256": "5effa82c5adff1467f73e6d75a535fb176d00c279ebabe63ebc484f410d199a3"
+    },
+    {
+      "path": "boaroot/cgi-bin/updateBandwidthDaily.asp",
+      "size": 563,
+      "sha256": "b8de07d976dc8f1d4acca34674c29bd5793097680b50c72a88e82e712eb9b29a"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_TrafficMonitor_realtime.asp",
+      "size": 15445,
+      "sha256": "476b6fed27f9ccc3de5b286e4ea04b0e003f882d1382f34104b8f2a11d009ee8"
+    },
+    {
+      "path": "boaroot/cgi-bin/QIS_wizard.asp",
+      "size": 12246,
+      "sha256": "496907ae43b4c0536fa3857de0ea7e3f12060c8b1c36e0906e5ff0ddbf5641a0"
+    },
+    {
+      "path": "boaroot/html/images/favicon.png",
+      "size": 252,
+      "sha256": "3a14df80a195fd35c4595c567352634db19be3f5cb718e7a60c2bae6c12f92ad"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_PTM_manual_setting.asp",
+      "size": 20866,
+      "sha256": "dc150fea5fec21cd74409a5e2370e52ef8f961becaef74202eb6cc463db31a7f"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_admin_pass.asp",
+      "size": 11054,
+      "sha256": "880e1ecd81ff3aae7665f745314c1eec18ceece3435729adccdb9822b2210d41"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_annex_setting.asp",
+      "size": 3973,
+      "sha256": "9f2ab326f52dd3bed95f8ee51945b2afcedad14cad452445b5912c1bf9151603"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_bridge_cfg_tmp.asp",
+      "size": 7445,
+      "sha256": "87714539260fcd3890761a5c5666f998cb5d7706a9c9cb7b369086d2d5061ea8"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_detect.asp",
+      "size": 11904,
+      "sha256": "e0e1030aac11d5b4aa8535043683dbc3e23f08eecc30c3254907b8da19ddb7d7"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_finish.asp",
+      "size": 32672,
+      "sha256": "b5827d579261246bece41f3137b236761c936454ee8bbd6ffc4ff494435b32a2"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_ipoa_cfg_tmp.asp",
+      "size": 13989,
+      "sha256": "053cafc16697150506aa5bc213f922517f3733e2ed4346b131d6a06cadcf94c3"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_manual_setting.asp",
+      "size": 20657,
+      "sha256": "e7a75824e96f935960675ebd7fd4c25f59e60ad165cac64e29420e36aa972095"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_mer_cfg.asp",
+      "size": 18128,
+      "sha256": "e527ad2b1d5f195fbd4729a9b43b819051ecdd101251b6197ee90d974ac26851"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_mer_cfg_tmp.asp",
+      "size": 26034,
+      "sha256": "32a366c898dc697f22ac1228be357e0d1389e843df1c2c6fe98df83ec06c0b72"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_ppp_cfg.asp",
+      "size": 20502,
+      "sha256": "71228fe8c889b14d868bc8b6f8809207dc9481ac855f1802bd504bf293e74dfc"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_ppp_cfg_tmp.asp",
+      "size": 24057,
+      "sha256": "6d50cd0dbd10d1a7b379cad24659b8429753c5106ecaa6a97046ff9cbfb96e89"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_verify_detect.asp",
+      "size": 4549,
+      "sha256": "9a61c9b68f16abaadd029b525547e2b1f9aa69a4b07c89c37ab092c9cbb6d549"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_wireless.asp",
+      "size": 8746,
+      "sha256": "3744b1d349a50204c5d5472e5a7b231b58a70fd842bb4f6e6032a976786f810b"
+    },
+    {
+      "path": "userfs/EN.dict",
+      "size": 163260,
+      "sha256": "4be5562768ccba2e8b5a090c47d0f1567e10c3e476421368438561d2a92f44ca"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_Password.asp",
+      "size": 12772,
+      "sha256": "83db1fb89e84d59a4d5d34b0dd5a3ce9deece34ebac4691a89bafb399b8a58b2"
+    }
+  ],
+  "traffic_history_retirement": {
+    "realtime_page": {
+      "path": "boaroot/cgi-bin/Main_TrafficMonitor_realtime.asp",
+      "change": "select options 2/3 and switchPage redirects for the retired history views removed; realtime monitor untouched otherwise",
+      "review": "C05"
+    }
+  },
+  "qis_wizard_branding": {
+    "review": "C06",
+    "pages": [
+      "boaroot/cgi-bin/QIS_wizard.asp",
+      "boaroot/html/images/favicon.png",
+      "boaroot/cgi-bin/qis/QIS_PTM_manual_setting.asp",
+      "boaroot/cgi-bin/qis/QIS_admin_pass.asp",
+      "boaroot/cgi-bin/qis/QIS_annex_setting.asp",
+      "boaroot/cgi-bin/qis/QIS_bridge_cfg_tmp.asp",
+      "boaroot/cgi-bin/qis/QIS_detect.asp",
+      "boaroot/cgi-bin/qis/QIS_finish.asp",
+      "boaroot/cgi-bin/qis/QIS_ipoa_cfg_tmp.asp",
+      "boaroot/cgi-bin/qis/QIS_manual_setting.asp",
+      "boaroot/cgi-bin/qis/QIS_mer_cfg.asp",
+      "boaroot/cgi-bin/qis/QIS_mer_cfg_tmp.asp",
+      "boaroot/cgi-bin/qis/QIS_ppp_cfg.asp",
+      "boaroot/cgi-bin/qis/QIS_ppp_cfg_tmp.asp",
+      "boaroot/cgi-bin/qis/QIS_verify_detect.asp",
+      "boaroot/cgi-bin/qis/QIS_wireless.asp"
+    ],
+    "change": "title literal and banner title-image replaced with OpenDSL text branding on QIS_wizard.asp; parent.document.title \"ASUS\" literal replaced with \"OpenDSL\" on the fourteen wizard step pages (flow logic untouched); the ASUS cloud-registration hint on the finish page replaced with a local-management line; neutral favicon replaces the ASUS logo favicon used by every page",
+    "deliberately_unchanged": [
+      "Other dictionary values, including vendor service/legal attributions; backend keys unchanged",
+      "asus.com support-site links inherited from stock helper text (same policy as state.js)",
+      "wizard flow logic, form fields, apply contracts, Detect/Annex/PPP sequences"
+    ]
+  },
+  "legacy_theme_contract": "../opendsl-ui/legacy-contracts.json"
+}

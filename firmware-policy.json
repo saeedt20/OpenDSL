@@ -1,0 +1,17 @@
+{
+  "model": "DSL-N12E-C1",
+  "baseline_version": "1.1.2.3_743",
+  "baseline_image_sha256": "927d93267ef1b33a5383e9b7b046287be20922586fb489f50352e83056603f4c",
+  "max_raw_image_bytes": 7957219,
+  "image_magic_ascii": "2RDH",
+  "interface_language": "English",
+  "keep_dsl_functionality": true,
+  "keep_iptv_functionality": true,
+  "ipv6_required": false,
+  "notes": [
+    "Size applies to the final raw flash image, not the ZIP archive or extracted tree.",
+    "A size pass is not a boot, integrity, authenticity or partition-layout validation.",
+    "Preserve vendor DSL/Wi-Fi components until tested replacements exist.",
+    "Reclaim language/assets space only after dependency and English fallback checks."
+  ]
+}

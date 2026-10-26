@@ -1,0 +1,44 @@
+{
+  "status": "Prepared runtime overlay; host fixtures passed; not staged/flashed by this agent",
+  "pack_subtree": "rootfs",
+  "kernel_ipv6_compiled_out": false,
+  "complete_kernel_mld_removal_proven": false,
+  "config_save_or_new_commit_added": false,
+  "factory_reset": false,
+  "stock_kernel_driver_abi_preserved": true,
+  "host_runtime_grouped_checks": 6,
+  "host_english_parser_cases": 7,
+  "running_sessions_from_this_work": [],
+  "files": [
+    {
+      "path": "rootfs/userfs/profile.cfg",
+      "size": 7629,
+      "sha256": "48a38ca565ff92215d2e1cb70ec594605b0204b34c1aef08111b5b7cfee42920"
+    },
+    {
+      "path": "rootfs/usr/etc/init.d/rcS",
+      "size": 34726,
+      "sha256": "bc5cba1deb6364f7f38e91bbd1c3df70438f41d3101f5eb92fd257aee115d7c3"
+    },
+    {
+      "path": "rootfs/usr/script/dslite_start.sh",
+      "size": 806,
+      "sha256": "f1b822a33ddfadabacb9bf8765d0a106464f55bf9880570b7067d8c9df657dfc"
+    },
+    {
+      "path": "rootfs/usr/script/ipv6rd_start.sh",
+      "size": 841,
+      "sha256": "e407afdd2af2a236aecbffec2e3c97f89680c937ba04f8dc7fa9dce18b024b4b"
+    },
+    {
+      "path": "rootfs/usr/script/wan_start.sh",
+      "size": 29502,
+      "sha256": "7db87e6b844c52cbfb61bdb14affff085297448f01063c73d354b837e62f1d7e"
+    },
+    {
+      "path": "rootfs/usr/script/wan_start_ipv6.sh",
+      "size": 29437,
+      "sha256": "8683d2cd0d3b26f7cef428f99c810f1eda43b613cda27ce72284ffa202fa9920"
+    }
+  ]
+}

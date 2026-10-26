@@ -1,0 +1,39 @@
+{
+  "project": "OpenDSL",
+  "version": "1.0.0",
+  "channel": "stable",
+  "hardware_model": "ASUS DSL-N12E C1",
+  "vendor_base": "1.1.2.3_743",
+  "image": {
+    "file": "OpenDSL_DSL-N12E-C1_1.0.0.trx",
+    "sha256": "3cdef80911b81c8e4410800b6d2b37d87eb999dec3591d34d97bd2ecd06bc3e4",
+    "bytes": 7027427,
+    "md5": "19f4f48214a873997c637552715dacda",
+    "limit_bytes": 7957219
+  },
+  "kernel_sha256": "4ca80844ebd463617b2654818e5d2f60f90a3493a7ca8ec06383b80f8c4479ba",
+  "rootfs": {
+    "sha256": "b45b70cac7c00f776af28465118285ad42e8eaed8bab0283f1680257437ec778",
+    "bytes": 5898240,
+    "entries": 1109
+  },
+  "based_on": "0.1.27-experimental",
+  "payload_difference": "Only the UI release label changes from 0.1.27-experimental to 1.0.0",
+  "not_asus_signed": true,
+  "hardware_evidence": "Maintainer reports about two hours on the predecessor build; individual features and long-term/recovery behavior not independently verified",
+  "checks": {
+    "build": true,
+    "fresh_filesystem_verification": true,
+    "static_suite": true,
+    "browser_suite": true,
+    "native_documents": 87,
+    "native_renders": 348,
+    "native_overflow": 0,
+    "packed_critical_files_identical": 16
+  },
+  "source_archive": {
+    "file": "GPL_DSL-N12E_C1_v1123743.zip",
+    "sha256": "adfddf4b12489df6ab10b1b627678dac609da2f228aeb37ecbcb3bccb0a39f84",
+    "bytes": 342716850
+  }
+}

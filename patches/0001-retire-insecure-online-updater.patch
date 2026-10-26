@@ -1,0 +1,406 @@
+--- a/boaroot/cgi-bin/Advanced_FirmwareUpgrade_Content.asp
++++ b/boaroot/cgi-bin/Advanced_FirmwareUpgrade_Content.asp
+@@ -727,14 +727,14 @@
+ 				<th><%tcWebApi_get("String_Entry","FW_item2","s")%></th>
+ 				<td><div style="height:33px;margin-top:5px;"><%If tcWebApi_get("DeviceInfo","FwVer","h") <> "" Then tcWebApi_staticGet("DeviceInfo","FwVer","s") end if%></div>
+ 						<div id="update_div" style="margin-left:216px;margin-top:-38px;display:none;">
+-							<input type="button" id="update" name="update" class="button_gen" onclick="detect_update();" value="<%tcWebApi_get("String_Entry","liveupdate","s")%>" />
+-							<span id="beta_firmware_path_span"><input type="checkbox" name="beta_firmware_path" id="beta_firmware_path" onclick="change_firmware_path(this.checked==true);"   <% if tcWebApi_get("Misc_Entry","firmware_path","h") = "1" then asp_Write("checked") end if %>>Get Beta Firmware</input></span>
++							<input type="button" id="update" disabled="disabled" name="update" class="button_gen" onclick="detect_update();" value="<%tcWebApi_get("String_Entry","liveupdate","s")%>" />
++							<span id="beta_firmware_path_span"><input type="checkbox" name="beta_firmware_path" id="beta_firmware_path" disabled="disabled" onclick="change_firmware_path(this.checked==true);"   <% if tcWebApi_get("Misc_Entry","firmware_path","h") = "1" then asp_Write("checked") end if %>>Get Beta Firmware</input></span>
+ 						</div>		
+ 						<div id="linkpage_div" class="button_helplink" style="margin-left:216px;margin-top:-38px;display:none;">
+ 							<a id="linkpage" target="_blank"><div style="padding-top:5px;"><%tcWebApi_get("String_Entry","liveupdate","s")%></div></a>
+ 						</div>
+ 						<div id="check_states">
+-							<span id="update_states"></span>
++							<span id="update_states">Online updates retired. Use a reviewed local firmware image.</span>
+ 							<img id="update_scan" style="display:none;" src="/images/InternetScan.gif" />
+ 						</div>
+ 				</td>
+--- a/boaroot/cgi-bin/live_update.asp
++++ b/boaroot/cgi-bin/live_update.asp
+@@ -1,55 +1,10 @@
+-<%
+-	if request_Form("live_update_flag") = "1" then
+-		tcWebApi_set("Misc_Entry","firmware_path","firmware_path")
+-		update_variables()
+-	elseif request_Form("live_upgrade_flag") = "1" then
+-		update_variables()
+-	elseif request_Form("sig_update_flag") = "1" then
+-		update_variables()
+-	end if	
+-	
+-	if request_Form("live_do_upgrade_flag") = "1" then
+-		stop_service()
+-		tcWebApi_set("System_Entry","upgrade_fw_status","value_NONE")
+-		tcWebApi_set("System_Entry","upgrade_fw","DOWNLOAD_HEADER_TYPE")
+-		tcWebApi_CommitWithoutSave("System_Entry")
+-	end if		
+-%>
+-
+-<html>
+-<!--live_update.asp-->
+-<head>
+-<title></title>
+-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+-<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+-<meta HTTP-EQUIV="Expires" CONTENT="-1">
+-<link rel="shortcut icon" href="/images/favicon.png">
+-<link rel="icon" href="/images/favicon.png">
+-<script type="text/javascript">	
+-	var action_script = "<% get_parameter("action_script"); %>";
+-	
+-	function initial(){		
+-		if(action_script.indexOf("start_webs_update") >= 0) {				
+-				setTimeout("parent.detect_firmware();", 5000);
+-		}
+-		if(action_script.indexOf("start_webs_upgrade") >= 0) {
+-  				setTimeout("parent.DownloadDone();", 3000);
+-  				setTimeout("parent.chk_upgrade();", 5000);
+-		}
+-	}	
+-</script>
+-</head>
+-<body onload="initial();">
+-<form method="post" name="redirectForm" action="/cgi-bin/live_update.asp" target="hidden_frame">
+-<input type="hidden" name="flag" value="">
+-<input type="hidden" name="prev_page" value="">
+-</form>
+-
+-
+-
+-
++<!doctype html>
++<html lang="en">
++<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Cache-Control" content="no-store"><title>Online updates retired</title></head>
++<body>
++<h1>Online updates retired</h1>
++<p>This model's legacy online updater has been retired. No update action was performed.</p>
++<p>Use a reviewed local firmware image through the original administration page.</p>
++<p><a href="/cgi-bin/Advanced_FirmwareUpgrade_Content.asp" target="_top">Return to firmware administration</a></p>
+ </body>
+-<!--live_update.asp-->
+ </html>
+-
+-
+--- a/usr/script/webs_update.sh
++++ b/usr/script/webs_update.sh
+@@ -1,187 +1,15 @@
+ #!/bin/sh
+-
+-forsq=`/userfs/bin/tcapi get Apps_Entry apps_sq`
+-echo "forsq = ${forsq}" >> /tmp/webs_upgrade.log #1 for sq
+-model=`/userfs/bin/tcapi get SysInfo_Entry ProductName`
+-model_GEN="$model#"
+-odmpid=`/userfs/bin/tcapi get SysInfo_Entry odmpid`
+-odmpid_GEN="$odmpid#"
+-echo "model_GEN = ${model_GEN}  ; odmpid_GEN = ${odmpid_GEN}" >> /tmp/webs_upgrade.log #      eg. DSL-N66U#  
+-
+-# get signature information
+-territory_code=`ATE Get_TerritoryCode`
+-model_SKU="$model"_"$territory_code"#
+-odmpid_SKU="$odmpid"_"$territory_code"#
+-echo "model_SKU = ${model_SKU}  ; odmpid_SKU = ${odmpid_SKU}" >> /tmp/webs_upgrade.log #	eg. DSL-N66U_CN#
+-
+-touch /tmp/update_url
+-update_url=`cat /tmp/update_url`
+-
+-#current firmware information
+-current_firm=`/userfs/bin/tcapi get DeviceInfo FwVer`	#1.1.2.2_7-gabcde12
+-current_firm=`echo $current_firm | sed s/'\.'//g;`	#1122_7-gabcde12
+-current_firm_1st_bit=`echo $current_firm | cut -c1-1`		#current_firm_1st_bit=${current_firm:0:1}
+-echo "current_firm_1st_bit = ${current_firm_1st_bit}" >> /tmp/webs_upgrade.log
+-current_buildno=`echo $current_firm | sed s/_.*//;`
+-current_extendno=`echo $current_firm | sed s/.....//;`
+-current_extendno=`echo $current_extendno | sed s/-g.*//;`
+-
+-#must be marked before checkin.
+-#update_url="https://192.168.123.198"
+-
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_update 0 &		# INITIALIZING
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_error 0 &
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_flag 0 &			# 0: Don't do upgrade  1: Do upgrade	
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_url "" &
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_reboot 0 &
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_info "" &
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_error_msg "" &
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_odm 0 &
+-
+-if [ "$update_url" != "" ]; then
+-	echo "---- update_url exist HTTPS ----" >> /tmp/webs_upgrade.log
+-	wget -q --no-check-certificate ${update_url}/wlan_update_dsl.zip -O /tmp/wlan_update.txt
+-elif [ "$forsq" = "1" ]; then
+-	echo "---- sq pqth HTTPS----" >> /tmp/webs_upgrade.log
+-	wget -q --no-check-certificate https://dlcdnets.asus.com/pub/ASUS/LiveUpdate/Release/Wireless_SQ/wlan_update_dsl.zip -O /tmp/wlan_update.txt
+-else
+-	echo "---- Official path HTTPS----" >> /tmp/webs_upgrade.log
+-	wget -q --no-check-certificate https://dlcdnets.asus.com/pub/ASUS/LiveUpdate/Release/Wireless/wlan_update_dsl.zip -O /tmp/wlan_update.txt
+-fi
+-
+-if [ "$?" != "0" ]; then
+-	echo "FW INFO download failed"
+-	echo "FW INFO download failed" >> /tmp/webs_upgrade.log
+-	/userfs/bin/tcapi set WebCustom_Entry webs_state_error 1 &
+-	/userfs/bin/tcapi set WebCustom_Entry webs_state_error_msg "download wlan_update.zip fail" &
+-else
+-	##FW1106_86-g09787df
+-	buildno=`grep $odmpid_SKU /tmp/wlan_update.txt | sed 's/.*#FW//;' | sed 's/#.*//;'`
+-	if [ "$buildno" == "" ]; then
+-		buildno=`grep $odmpid_GEN /tmp/wlan_update.txt | sed 's/.*#FW//;' | sed 's/#.*//;'`
+-		if [ "$buildno" == "" ]; then
+-			buildno=`grep $model_SKU /tmp/wlan_update.txt | sed 's/.*#FW//;' | sed 's/#.*//;'`
+-			if [ "$buildno" == "" ]; then
+-				model_grep=$model_GEN
+-			else
+-				model_grep=$model_SKU
+-			fi
+-		else
+-			model_grep=$odmpid_GEN
+-			/userfs/bin/tcapi set WebCustom_Entry webs_state_odm 1 &
+-		fi
+-	else
+-		model_grep=$odmpid_SKU
+-		/userfs/bin/tcapi set WebCustom_Entry webs_state_odm 1 &
+-	fi
+-	echo "model_grep = ${model_grep}" >> /tmp/webs_upgrade.log
+-	
+-	buildno=`grep $model_grep /tmp/wlan_update.txt | sed 's/.*#FW//;' | sed 's/#.*//;'`
+-	extendno=`grep $model_grep /tmp/wlan_update.txt | sed 's/.*#EXT//;' | sed 's/#.*//;'`
+-	lextendno=`echo $extendno | sed s/-g.*//;`
+-	buildno_beta=`grep $model_grep /tmp/wlan_update.txt | sed 's/.*#BETAFW//;' | sed 's/#.*//;'`
+-	extendno_beta=`grep $model_grep /tmp/wlan_update.txt | sed 's/.*#BETAEXT//;' | sed 's/#.*//;'`
+-	lextendno_beta=`echo $extendno_beta | sed s/-g.*//;`
+-	url_path=`grep $model_grep /tmp/wlan_update.txt | sed 's/.*#URL//;' | sed 's/#.*//;'`
+-	need_reset=`grep $model_grep /tmp/wlan_update.txt | grep '#RBT' /tmp/wlan_update.txt`
+-	if [ "$buildno" = "" ]; then
+-		/userfs/bin/tcapi set WebCustom_Entry webs_state_error 1 &
+-		/userfs/bin/tcapi set WebCustom_Entry webs_state_error_msg "parse wlan_update.txt fail" &
+-	else
+-		/userfs/bin/tcapi set WebCustom_Entry webs_state_info ${buildno}_${extendno} &
+-		/userfs/bin/tcapi set WebCustom_Entry webs_state_info_beta ${buildno_beta}_${extendno_beta} &
+-		if [ "$url_path" != "" ]; then
+-			/userfs/bin/tcapi set WebCustom_Entry webs_state_url $url_path &
+-		else
+-			/userfs/bin/tcapi set WebCustom_Entry webs_state_url "" &
+-		fi
+-		if [ ${#need_reset} -gt 0 ]; then
+-			/userfs/bin/tcapi set WebCustom_Entry webs_state_reboot ${#need_reset} &
+-		fi
+-	fi
+-fi
+-rm /tmp/wlan_update.txt
+-
+-
+-#set webs_state_flag=1
+-echo "---- current fw info : $current_buildno $current_extendno ----" >> /tmp/webs_upgrade.log
+-echo "---- formal fw info : $buildno $lextendno ----" >> /tmp/webs_upgrade.log
+-echo "---- beta fw info : $buildno_beta $lextendno_beta ----" >> /tmp/webs_upgrade.log
+-update_webs_state_info=`/userfs/bin/tcapi get WebCustom_Entry webs_state_info`
+-last_webs_state_info=`/userfs/bin/tcapi get WebCustom_Entry webs_last_info`
+-if [ "$buildno" == "" ] || [ "$lextendno" == "" ]; then
+-	/userfs/bin/tcapi set WebCustom_Entry webs_state_error 1 &	# exist no Info
+-	/userfs/bin/tcapi set WebCustom_Entry webs_state_error_msg "parsing info fail" &
+-else
+-	if [ "$current_buildno" -lt "$buildno" ]; then
+-		echo "---- buildno: $buildno ----" >> /tmp/webs_upgrade.log
+-		/userfs/bin/tcapi set WebCustom_Entry webs_state_flag 1 &	# Do upgrade
+-		if [ "$last_webs_state_info" != "$update_webs_state_info" ]; then
+-			if [ "$current_firm_1st_bit" != 9 ]; then
+-				#Notify_Event2NC "$SYS_FW_NWE_VERSION_AVAILABLE_EVENT" "New FW Available now."	#Send Event to Notification Center
+-				/userfs/bin/tcapi set WebCustom_Entry webs_last_info ${update_webs_state_info} &
+-			fi	
+-		fi
+-	elif [ "$current_buildno" -eq "$buildno" ]; then
+-		if [ "$current_extendno" -lt "$lextendno" ]; then
+-			echo "---- lextendno: $lextendno ----" >> /tmp/webs_upgrade.log
+-			/userfs/bin/tcapi set WebCustom_Entry webs_state_flag 1	&	# Do upgrade
+-			if [ "$last_webs_state_info" != "$update_webs_state_info" ]; then
+-				if [ "$current_firm_1st_bit" != 9 ]; then
+-					#Notify_Event2NC "$SYS_FW_NWE_VERSION_AVAILABLE_EVENT" "New FW Available now."	#Send Event to Notification Center
+-					/userfs/bin/tcapi set WebCustom_Entry webs_last_info ${update_webs_state_info} &
+-				fi	
+-			fi
+-		fi
+-	fi	
+-fi
+-
+-
+-# download release note
+-get_productid=`/userfs/bin/tcapi get SysInfo_Entry ProductName`
+-odmpid_support=`/userfs/bin/tcapi get WebCustom_Entry webs_state_odm`
+-if [ "$odmpid_support" == "1" ]; then
+-	get_productid=`/userfs/bin/tcapi get SysInfo_Entry odmpid`
+-fi
+-get_productid=`echo $get_productid | sed s/+/plus/;`	#replace 'plus' to '+' for one time
+-
+-#releasenote_file0=`echo $get_productid`_`/userfs/bin/tcapi get WebCustom_Entry webs_state_info`_"$LANG"_note.zip
+-releasenote_file0_US=`echo $get_productid`_`/userfs/bin/tcapi get WebCustom_Entry webs_state_info`_US_note.zip
+-releasenote_path0="/tmp/release_note0.txt"
+-#releasenote_file1=`echo $get_productid`_`/userfs/bin/tcapi get WebCustom_Entry webs_state_info_beta`_"$LANG"_note.zip
+-releasenote_file1_US=`echo $get_productid`_`/userfs/bin/tcapi get WebCustom_Entry webs_state_info_beta`_US_note.zip
+-releasenote_path1="/tmp/release_note1.txt"
+-
+-if [ "$forsq" == "1" ]; then
+-	echo "---- download SQ release note ----" >> /tmp/webs_upgrade.log
+-	#wget $wget_options https://dlcdnets.asus.com/pub/ASUS/LiveUpdate/Release/Wireless_SQ/$releasenote_file0 -O $releasenote_path0
+-		#if [ "$?" != "0" ]; then
+-			wget $wget_options https://dlcdnets.asus.com/pub/ASUS/LiveUpdate/Release/Wireless_SQ/$releasenote_file0_US -O $releasenote_path0
+-			echo "https://dlcdnets.asus.com/pub/ASUS/LiveUpdate/Release/Wireless_SQ/$releasenote_file0_US" >> /tmp/webs_upgrade.log
+-		#fi	
+-	#wget $wget_options https://dlcdnets.asus.com/pub/ASUS/LiveUpdate/Release/Wireless_SQ/$releasenote_file1 -O $releasenote_path1
+-		#if [ "$?" != "0" ]; then
+-			wget $wget_options https://dlcdnets.asus.com/pub/ASUS/LiveUpdate/Release/Wireless_SQ/$releasenote_file1_US -O $releasenote_path1
+-			echo "https://dlcdnets.asus.com/pub/ASUS/LiveUpdate/Release/Wireless_SQ/$releasenote_file1_US" >> /tmp/webs_upgrade.log
+-		#fi	
+-else
+-	echo "---- download real release note ----" >> /tmp/webs_upgrade.log
+-	#wget $wget_options https://dlcdnets.asus.com/pub/ASUS/wireless/ASUSWRT/$releasenote_file0 -O $releasenote_path0
+-		#if [ "$?" != "0" ]; then
+-			wget $wget_options https://dlcdnets.asus.com/pub/ASUS/wireless/ASUSWRT/$releasenote_file0_US -O $releasenote_path0
+-			echo "---- https://dlcdnets.asus.com/pub/ASUS/wireless/ASUSWRT/$releasenote_file0_US ----" >> /tmp/webs_upgrade.log
+-		#fi		
+-	#wget $wget_options https://dlcdnets.asus.com/pub/ASUS/wireless/ASUSWRT/$releasenote_file1 -O $releasenote_path1
+-		#if [ "$?" != "0" ]; then
+-			wget $wget_options https://dlcdnets.asus.com/pub/ASUS/wireless/ASUSWRT/$releasenote_file1_US -O $releasenote_path1
+-			echo "---- https://dlcdnets.asus.com/pub/ASUS/wireless/ASUSWRT/$releasenote_file1_US ----" >> /tmp/webs_upgrade.log
+-		#fi		
+-fi
+-	
+-if [ "$?" != "0" ]; then
+-	echo "---- download SQ release note failed ----" >> /tmp/webs_upgrade.log
+-	/userfs/bin/tcapi set webs_state_error 1 &
+-fi
+-
+-
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_update 1 &
++# Candidate hardening for DSL-N12E-C1 1.1.2.3_743: retire the EOL network updater.
++# Set the error first; never advertise a successful firmware download.
++set -eu
++/userfs/bin/tcapi set WebCustom_Entry webs_state_error 1
++/userfs/bin/tcapi set WebCustom_Entry webs_state_error_msg "Online updates retired; use a reviewed local firmware image."
++/userfs/bin/tcapi set WebCustom_Entry webs_state_flag 0
++/userfs/bin/tcapi set WebCustom_Entry webs_state_info ""
++/userfs/bin/tcapi set WebCustom_Entry webs_state_info_beta ""
++/userfs/bin/tcapi set WebCustom_Entry webs_state_url ""
++/userfs/bin/tcapi set WebCustom_Entry webs_state_reboot 0
++/userfs/bin/tcapi set WebCustom_Entry webs_state_update 1
++/userfs/bin/tcapi set WebCustom_Entry webs_state_upgrade 1
++/userfs/bin/tcapi set WebCustom_Entry webs_rsa_state_upgrade 1
++exit 1
+--- a/usr/script/webs_upgrade.sh
++++ b/usr/script/webs_upgrade.sh
+@@ -1,77 +1,15 @@
+ #!/bin/sh
+-
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_upgrade 0 &# INITIALIZING
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_error 0 &
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_error_msg "" &
+-/userfs/bin/tcapi set WebCustom_Entry webs_rsa_state_upgrade 0 &
+-
+-#openssl support rsa check
+-rsa_enabled=`/userfs/bin/tcapi get SysInfo_Entry rc_support | grep HTTPS`
+-echo "---- rsa_enabled= $rsa_enabled  ----" >> /tmp/webs_upgrade.log
+-
+-forsq=`/userfs/bin/tcapi get Apps_Entry apps_sq`
+-url_path=`/userfs/bin/tcapi get WebCustom_Entry webs_state_url`
+-firmware_path=`/userfs/bin/tcapi get Misc_Entry firmware_path`
+-get_productid=`/userfs/bin/tcapi get SysInfo_Entry ProductName`
+-odmpid_support=`/userfs/bin/tcapi get WebCustom_Entry webs_state_odm`
+-if [ "$odmpid_support" = "1" ]; then
+-	get_productid=`/userfs/bin/tcapi get SysInfo_Entry odmpid`
+-fi
+-
+-if [ "$firmware_path" = "1" ]; then
+-	firmware_file=`echo $get_productid`_`/userfs/bin/tcapi get WebCustom_Entry webs_state_info_beta`.zip
+-else
+-	firmware_file=`echo $get_productid`_`/userfs/bin/tcapi get WebCustom_Entry webs_state_info`.zip
+-fi
+-
+-if [ "$rsa_enabled" != "" ]; then
+-	if [ "$firmware_path" = "1" ]; then
+-		firmware_rsasign=`echo $get_productid`_`/userfs/bin/tcapi get WebCustom_Entry webs_state_info_beta`_rsa.zip
+-	else
+-		firmware_rsasign=`echo $get_productid`_`/userfs/bin/tcapi get WebCustom_Entry webs_state_info`_rsa.zip
+-	fi
+-fi
+-
+-touch /tmp/update_url
+-update_url=`cat /tmp/update_url`
+-
+-#testing purpose, must be marked before checkin.
+-#update_url="http://192.168.123.198
+-
+-# get firmware information
+-echo 3 > /proc/sys/vm/drop_caches
+-if [ "$update_url" != "" ]; then
+-	echo "---- update_url exist upgrade HTTPS----" >> /tmp/webs_upgrade.log
+-       	wget -q --no-check-certificate ${update_url}/$firmware_file -O /var/tmp/tclinux.bin
+-	if [ "$rsa_enabled" != "" ]; then
+-		wget -q --no-check-certificate ${update_url}/$firmware_rsasign -O /var/tmp/rsasign.bin
+-	fi
+-elif [ "$forsq" = "1" ]; then
+-	echo "---- sq path upgrade HTTPS----" >> /tmp/webs_upgrade.log
+-       	wget -q --no-check-certificate https://dlcdnets.asus.com/pub/ASUS/LiveUpdate/Release/Wireless_SQ/$firmware_file -O /var/tmp/tclinux.bin
+-	if [ "$rsa_enabled" != "" ]; then
+-		wget -q --no-check-certificate https://dlcdnets.asus.com/pub/ASUS/LiveUpdate/Release/Wireless_SQ/$firmware_rsasign -O /var/tmp/rsasign.bin
+-	fi
+-elif [ "$url_path" = "" ]; then
+-	echo "---- Official path upgrade HTTPS----" >> /tmp/webs_upgrade.log
+-	wget -q --no-check-certificate https://dlcdnets.asus.com/pub/ASUS/wireless/ASUSWRT/$firmware_file -O /var/tmp/tclinux.bin
+-	if [ "$rsa_enabled" != "" ]; then
+-		wget -q --no-check-certificate https://dlcdnets.asus.com/pub/ASUS/wireless/ASUSWRT/$firmware_rsasign -O /var/tmp/rsasign.bin
+-	fi
+-else
+-	echo "---- External URL path upgrade HTTPS----" >> /tmp/webs_upgrade.log
+-	wget -q --no-check-certificate $url_path/$firmware_file -O /var/tmp/tclinux.bin
+-	if [ "$rsa_enabled" != "" ]; then
+-		wget -q --no-check-certificate $url_path/$firmware_rsasign -O /var/tmp/rsasign.bin
+-	fi
+-fi
+-
+-if [ "$?" != "0" ]; then
+-	/userfs/bin/tcapi set WebCustom_Entry webs_state_error 1 &
+-	/userfs/bin/tcapi set WebCustom_Entry webs_state_error_msg "download firmware fail" &
+-else
+-	echo 3 > /proc/sys/vm/drop_caches
+-	/userfs/bin/tcapi set WebCustom_Entry webs_state_error_msg "download firmware successfully" &
+-fi
+-/userfs/bin/tcapi set WebCustom_Entry webs_state_upgrade 1 &
+-/userfs/bin/tcapi set WebCustom_Entry webs_rsa_state_upgrade 1 &
++# Candidate hardening for DSL-N12E-C1 1.1.2.3_743: retire the EOL network updater.
++# Set the error first; never advertise a successful firmware download.
++set -eu
++/userfs/bin/tcapi set WebCustom_Entry webs_state_error 1
++/userfs/bin/tcapi set WebCustom_Entry webs_state_error_msg "Online updates retired; use a reviewed local firmware image."
++/userfs/bin/tcapi set WebCustom_Entry webs_state_flag 0
++/userfs/bin/tcapi set WebCustom_Entry webs_state_info ""
++/userfs/bin/tcapi set WebCustom_Entry webs_state_info_beta ""
++/userfs/bin/tcapi set WebCustom_Entry webs_state_url ""
++/userfs/bin/tcapi set WebCustom_Entry webs_state_reboot 0
++/userfs/bin/tcapi set WebCustom_Entry webs_state_update 1
++/userfs/bin/tcapi set WebCustom_Entry webs_state_upgrade 1
++/userfs/bin/tcapi set WebCustom_Entry webs_rsa_state_upgrade 1
++exit 1
+--- a/usr/script/webs_upgrade2.sh
++++ b/usr/script/webs_upgrade2.sh
+@@ -1,5 +1,15 @@
+ #!/bin/sh
+-/userfs/bin/tcapi set System_Entry upgrade_fw_status "NONE"
+-/userfs/bin/tcapi set System_Entry upgrade_fw "1"
+-/userfs/bin/tcapi commit System_Entry
+-
++# Candidate hardening for DSL-N12E-C1 1.1.2.3_743: retire the EOL network updater.
++# Set the error first; never advertise a successful firmware download.
++set -eu
++/userfs/bin/tcapi set WebCustom_Entry webs_state_error 1
++/userfs/bin/tcapi set WebCustom_Entry webs_state_error_msg "Online updates retired; use a reviewed local firmware image."
++/userfs/bin/tcapi set WebCustom_Entry webs_state_flag 0
++/userfs/bin/tcapi set WebCustom_Entry webs_state_info ""
++/userfs/bin/tcapi set WebCustom_Entry webs_state_info_beta ""
++/userfs/bin/tcapi set WebCustom_Entry webs_state_url ""
++/userfs/bin/tcapi set WebCustom_Entry webs_state_reboot 0
++/userfs/bin/tcapi set WebCustom_Entry webs_state_update 1
++/userfs/bin/tcapi set WebCustom_Entry webs_state_upgrade 1
++/userfs/bin/tcapi set WebCustom_Entry webs_rsa_state_upgrade 1
++exit 1

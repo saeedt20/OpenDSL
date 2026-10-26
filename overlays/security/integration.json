@@ -1,0 +1,53 @@
+{
+  "status": "Reviewed guard overlay; retire insecure vendor online-update paths, retain manual upload form; host-checked, device-unverified. A01 review fix: guard helpers write no WebCustom_Entry state (no webs_state_error/webs_rsa_state_upgrade writes), so retirement can never poison the next manual local upload; retirement is signalled by exit status only.",
+  "pack_subtree": "boaroot",
+  "extra_pack_subtree": "usr",
+  "created_by": "patches/0001-retire-insecure-online-updater.patch",
+  "native_update_route": "/Advanced_FirmwareUpgrade_Content.asp",
+  "upload_contract_preserved": {
+    "form_enctype_multipart": true,
+    "field_tools_FW_UploadFile_present": 3,
+    "request_Form_postflag_check_present": 3,
+    "HTML_HEADER_TYPE_value_2_present": 2,
+    "value_NONE_protection_fields_present": 4,
+    "native_upload_and_mtd_config_logic_untouched": true
+  },
+  "retired_paths": [
+    "usr/script/webs_update.sh (was 187-line HTTPS downloader, --no-check-certificate)",
+    "usr/script/webs_upgrade.sh (was HTTPS firmware downloader to /var/tmp/tclinux.bin)",
+    "usr/script/webs_upgrade2.sh (was unconditional System_Entry upgrade trigger)",
+    "boaroot/cgi-bin/live_update.asp (was live-update control page)"
+  ],
+  "limitations": [
+    "Stale online-updater state in saved user config remains a caveat; no blanket acceptance signature is added.",
+    "Reviewer must verify firmware-upload flow on hardware later."
+  ],
+  "files": [
+    {
+      "path": "boaroot/cgi-bin/Advanced_FirmwareUpgrade_Content.asp",
+      "size": 30095,
+      "sha256": "2dc3854410bc0bb3b658730c9cb8d389fc0ce2d9dd9245beb3d1c5a9fe8d4c92"
+    },
+    {
+      "path": "boaroot/cgi-bin/live_update.asp",
+      "size": 652,
+      "sha256": "9964b055f1be4ed7fffc8f204d24a9a09a37e8f1a067b475b7371b28d9081fbc"
+    },
+    {
+      "path": "usr/script/webs_update.sh",
+      "size": 854,
+      "sha256": "5fb6efc5cda8d354941bd92853b26c38aa4270dd4b56c8b6bde683d1d1771e1b"
+    },
+    {
+      "path": "usr/script/webs_upgrade.sh",
+      "size": 854,
+      "sha256": "5fb6efc5cda8d354941bd92853b26c38aa4270dd4b56c8b6bde683d1d1771e1b"
+    },
+    {
+      "path": "usr/script/webs_upgrade2.sh",
+      "size": 854,
+      "sha256": "5fb6efc5cda8d354941bd92853b26c38aa4270dd4b56c8b6bde683d1d1771e1b"
+    }
+  ],
+  "guard_state_contract": "webCustom_Entry must stay untouched: cfg_manager's manual-upload gate requires webs_state_error \"0\"; no fake signed-upgrade state may be set. Native controller returns on nonzero helper status (boa-retire-online-update-controller.patch)."
+}

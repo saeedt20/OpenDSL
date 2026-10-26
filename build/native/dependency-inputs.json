@@ -1,0 +1,57 @@
+[
+  {
+    "from": "build/native/sdk/filesystem/lib/libshared.so",
+    "to": "build/native/sdk/apps/public/shared/libshared.so",
+    "sha256": "36dd6a43ffbd49eeff132efe01ae544bb6a3565ca58d02d694f172dd682c4408"
+  },
+  {
+    "from": "build/native/sdk/filesystem/lib/libjson-c.so",
+    "to": "build/native/sdk/apps/public/json-c/.libs/libjson-c.so",
+    "sha256": "dbed2b135559c0da8b70eb6390365db777847b5ba9862d7f1e3fc0964dae222d"
+  },
+  {
+    "from": "build/native/sdk/filesystem/lib/libjson-c.so.2",
+    "to": "build/native/sdk/apps/public/json-c/.libs/libjson-c.so.2",
+    "sha256": "dbed2b135559c0da8b70eb6390365db777847b5ba9862d7f1e3fc0964dae222d"
+  },
+  {
+    "from": "build/native/sdk/filesystem/lib/libjson-c.so.2.0.1",
+    "to": "build/native/sdk/apps/public/json-c/.libs/libjson-c.so.2.0.1",
+    "sha256": "dbed2b135559c0da8b70eb6390365db777847b5ba9862d7f1e3fc0964dae222d"
+  },
+  {
+    "from": "build/native/sdk/filesystem/lib/libcrypto.so",
+    "to": "build/native/sdk/apps/public/openssl-1.0.2d/libcrypto.so",
+    "sha256": "7773508e461c9f3137ec3c6ef97934e6c6a510215a3b8592ee1f551d0ebc347b"
+  },
+  {
+    "from": "build/native/sdk/filesystem/lib/libcrypto.so.1.0.0",
+    "to": "build/native/sdk/apps/public/openssl-1.0.2d/libcrypto.so.1.0.0",
+    "sha256": "7773508e461c9f3137ec3c6ef97934e6c6a510215a3b8592ee1f551d0ebc347b"
+  },
+  {
+    "from": "build/native/sdk/filesystem/lib/libssl.so",
+    "to": "build/native/sdk/apps/public/openssl-1.0.2d/libssl.so",
+    "sha256": "49d7abdb1c80ca1c9c24decccdeb2d3ad222588b97539a1c5f3be935e763def9"
+  },
+  {
+    "from": "build/native/sdk/filesystem/lib/libssl.so.1.0.0",
+    "to": "build/native/sdk/apps/public/openssl-1.0.2d/libssl.so.1.0.0",
+    "sha256": "49d7abdb1c80ca1c9c24decccdeb2d3ad222588b97539a1c5f3be935e763def9"
+  },
+  {
+    "from": "build/native/sdk/filesystem/lib/libmxml.so",
+    "to": "build/native/sdk/apps/public/lib/libmxml.so",
+    "sha256": "cb6aa1c6703b12a9f947d0eef4867bf0f597f589855d9d884df9b51c0dbc3751"
+  },
+  {
+    "from": "build/native/sdk/filesystem/lib/libmxml.so.1",
+    "to": "build/native/sdk/apps/public/lib/libmxml.so.1",
+    "sha256": "cb6aa1c6703b12a9f947d0eef4867bf0f597f589855d9d884df9b51c0dbc3751"
+  },
+  {
+    "from": "build/native/sdk/filesystem/lib/libmxml.so.1.4",
+    "to": "build/native/sdk/apps/public/lib/libmxml.so.1.4",
+    "sha256": "cb6aa1c6703b12a9f947d0eef4867bf0f597f589855d9d884df9b51c0dbc3751"
+  }
+]

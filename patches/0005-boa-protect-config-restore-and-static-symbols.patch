@@ -1,0 +1,84 @@
+From: OpenDSL
+Subject: Protect native app restore and permit only shipped static symbols before login
+
+--- a/apps/public/boa-asp/src/request.c
++++ b/apps/public/boa-asp/src/request.c
+@@ -1073,10 +1073,24 @@
+ 		
+ }
+ 
++static int is_public_symbol(const char *url)
++{
++	const char prefix[] = "/opendsl/symbols/";
++	const char *name;
++	size_t len, i;
++	if(!url || strncmp(url, prefix, sizeof(prefix) - 1)) return 0;
++	name = url + sizeof(prefix) - 1;
++	len = strlen(name);
++	if(len <= 4 || strcmp(name + len - 4, ".svg")) return 0;
++	for(i = 0; i < len - 4; ++i)
++		if((name[i] < 'a' || name[i] > 'z') && name[i] != '-') return 0;
++	return 1;
++}
++
+ #if !defined(TCSUPPORT_SELF_LOGIN_WINDOW)
+ int AllPassUrl(char *url)
+ {
+-	if(	strstr(url, ".js") ||
++	if(	is_public_symbol(url) || strstr(url, ".js") ||
+ 		strstr(url, ".gif") ||
+ 		strstr(url, ".png") ||
+ 		strstr(url, ".jpg") ||
+@@ -1090,7 +1104,6 @@
+ /* ASUS Router (AiHome) APP no need tokan */
+ 		|| strstr(url, "get_webdavInfo.asp")
+ 		|| strstr(url, "appGet_image_path.asp")
+-		|| strstr(url, "upload.asp")
+ 		|| strstr(url, "setting_lan.asp")
+ #endif
+ 		|| strstr(url, "index.asp")
+@@ -1483,7 +1496,7 @@
+ 
+ static int _pass_login_check(const char *url)
+ {
+-	if( strstr(url, "error_page.asp") ||
++	if( is_public_symbol(url) || strstr(url, "error_page.asp") ||
+ 	strstr(url, "blocking.asp") ||
+ 	strstr(url , ".js") ||
+ 	strstr(url , ".gif") ||
+--- a/apps/public/boa-asp/src/asp/asp_handler.c
++++ b/apps/public/boa-asp/src/asp/asp_handler.c
+@@ -69,6 +69,7 @@
+ #endif
+ 
+ extern asus_token_t* add_asus_token(const CLIENT_TYPE cli_type, const char *token, const char *ipaddr);
++extern int http_authorize(request *req);
+ extern int inet_deconflict(const char *addr1, const char *mask1, const char *addr2, const char *mask2, struct in_addr *result);
+ 
+ //Andy Chiu, 2015/01/23.
+@@ -12963,9 +12964,22 @@
+ 
+ static void do_upload_cgi (asp_reent* reent, const asp_text* params, asp_text* ret)
+ {
+-	//dbgprintf("[%s, %d]\n", __FUNCTION__, __LINE__);
+-	eval("/usr/script/upload_config.sh");
+-	system("reboot");
++	request *req = reent ? reent->server_env : NULL;
++	char *filename, *data_start, *data_end;
++	size_t len;
++	if(!req || req->method != M_POST || http_authorize(req) != 0
++		|| !req->content_type || strncasecmp(req->content_type, "multipart/form-data;", 20)) return;
++	filename = get_param(g_var_post, "bfilename");
++	data_start = get_param(g_var_post, "bdata_start");
++	data_end = get_param(g_var_post, "bdata_end");
++	if(!filename || !*filename || !data_start || !*data_start || !data_end || !*data_end) return;
++	len = strlen(filename);
++	if(len < 4 || strcmp(filename + len - 4, ".cfg")
++		|| !strstr(filename, "Settings_") || strstr(filename, "trx")) return;
++	/* cfg_manager validates the upload and owns the successful restore/reboot. */
++	if(tcapi_set("System_Entry", "upgrade_fw_status", "NONE") < 0
++		|| tcapi_set("System_Entry", "upgrade_fw", "2") < 0) return;
++	tcapi_commit("System_Entry");
+ }
+ 
+ static void do_set_ASUS_EULA_cgi (asp_reent* reent, const asp_text* params, asp_text* ret)

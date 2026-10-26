@@ -1,0 +1,11 @@
+--- a/apps/public/boa-asp/src/asp/asp_handler.c
++++ b/apps/public/boa-asp/src/asp/asp_handler.c
+@@ -16462,7 +16462,7 @@
+ 	snprintf(p, sizeof(buf) - (p -buf), "%s", CONTENT_TYPE); 
+ 	p += strlen(CONTENT_TYPE);
+ 
+-	char set_cookie[256];
++	char set_cookie[256] = {0};
+ 	if(token)
+ 	{
+ 		snprintf(set_cookie, sizeof(set_cookie), "Set-Cookie: asus_token=%s; HttpOnly;\r\n", token);

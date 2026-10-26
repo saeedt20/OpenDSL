@@ -1,0 +1,30 @@
+--- a/squashfs-tools/unsquashfs.c
++++ b/squashfs-tools/unsquashfs.c
+@@ -522,6 +522,14 @@
+ 					ERROR("create_inode: failed to change uid and gids on %s, because %s\n", pathname, strerror(errno));
+ 			}
+ 
++			/* Preserve link timestamps without following firmware links. */
++			{
++				struct timespec times[2];
++				times[0].tv_sec = times[1].tv_sec = inodep->mtime;
++				times[0].tv_nsec = times[1].tv_nsec = 0;
++				if(utimensat(AT_FDCWD, pathname, times, AT_SYMLINK_NOFOLLOW) == -1)
++					ERROR("create_inode: failed to restore link time on %s\n", pathname);
++			}
+ 			sym_count ++;
+ 			break;
+ 		}
+--- a/squashfs-tools/mksquashfs.c
++++ b/squashfs-tools/mksquashfs.c
+@@ -2190,7 +2190,9 @@
+ 	sBlk.block_size = block_size;
+ 	sBlk.block_log = block_log;
+ 	sBlk.flags = SQUASHFS_MKFLAGS(noI, noD, check_data, noF, no_fragments, always_use_fragments, duplicate_checking);
+-	sBlk.mkfs_time = time(NULL);
++	/* Fixed release timestamp makes repeated builds comparable. */
++	sBlk.mkfs_time = getenv("SOURCE_DATE_EPOCH") ?
++		strtoul(getenv("SOURCE_DATE_EPOCH"), NULL, 10) : time(NULL);
+ 
+ restore_filesystem:
+ 	write_fragment();

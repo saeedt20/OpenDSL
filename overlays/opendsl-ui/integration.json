@@ -1,0 +1,521 @@
+{
+  "status": "production integration candidate; host-tested, device-unverified",
+  "pack_subtree": "boaroot",
+  "uncompressed_bytes": 1947201,
+  "individual_gzip_bytes": 406434,
+  "native_update_route": "/Advanced_FirmwareUpgrade_Content.asp",
+  "native_update_backend_changed": false,
+  "native_auth_backend_changed": false,
+  "first_run_qis_condition_changed": false,
+  "login_success_landing": "index.asp",
+  "no_device_testing": true,
+  "files": [
+    {
+      "path": "boaroot/cgi-bin/Main_Login.asp",
+      "size": 3601,
+      "sha256": "2ddd4aa9784b213896d0f52215c0ee46f00ce7c728efd208686958779c3842d7"
+    },
+    {
+      "path": "boaroot/cgi-bin/OpenDSL.asp",
+      "size": 14682,
+      "sha256": "247066170e35413433205e7c85ea7b06bf2ea501e010e6a24026244c3e134be3"
+    },
+    {
+      "path": "boaroot/cgi-bin/index.asp",
+      "size": 372,
+      "sha256": "7c2af382d9213c6f64be9e73e94de1f3350a80d8b4d3a0bd19deca33fd50f66a"
+    },
+    {
+      "path": "boaroot/html/opendsl/login.js",
+      "size": 4359,
+      "sha256": "90981fe4d7d4683ffaa97e3f15cb0e1c2337501faa93618ade2c85a98cc9abfc"
+    },
+    {
+      "path": "boaroot/html/opendsl/panel.js",
+      "size": 14262,
+      "sha256": "46736e396a67b41fbecade586de779d77b05896ec0ca19c7a42547685432c601"
+    },
+    {
+      "path": "boaroot/html/opendsl/status-data.js",
+      "size": 8545,
+      "sha256": "49d73a4f5ce72a204e6d0f7b15d2d509505f5166791ac362726c7b45e09e3a0a"
+    },
+    {
+      "path": "boaroot/html/opendsl/styles.css",
+      "size": 17503,
+      "sha256": "14cdc31e373216055f96a8f63db97b87719075bf870133962832bef6bbe9ec97"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_ACL_Content.asp",
+      "size": 16723,
+      "sha256": "135c8e8cd6aea471a61f43e94a9bfaa883be71d635296ba0fb2b214a75c1b81d"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_ADSL_Content.asp",
+      "size": 47713,
+      "sha256": "f505a05c17086f7eb6a42f02ce6e506451f7cedaa68e407345a3297439b9374c"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_ASUSDDNS_Content.asp",
+      "size": 18461,
+      "sha256": "aa16eef3f0106706254afd11e20b340171bf9b433a82028f1732e4f23d306705"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_BasicFirewall_Content.asp",
+      "size": 9561,
+      "sha256": "580365532f5604c546964f0676c33bc8e1ceb3e651f3b9c5c3911b250fff5ea9"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_DHCP_Content.asp",
+      "size": 54723,
+      "sha256": "7d1782dd7e0a162c5dc7f52a9423868068cb0569d14f2cb5814ac5035f8ececa"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_DSL_Content.asp",
+      "size": 120648,
+      "sha256": "fce425140d6625a604d8886480a1659164efbb7430957eccb8829a8b29e94c1f"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_Exposed_Content.asp",
+      "size": 6443,
+      "sha256": "2af3f9924f6e15c9d9851047155ee300f401ff2176522eb9c71f990e89a33934"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_Feedback.asp",
+      "size": 20844,
+      "sha256": "837fe28b6fc351908d07445dad478f24fdb2ef4dff01f3f9c2a48b189cf56364"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_Firewall_Content.asp",
+      "size": 27788,
+      "sha256": "7fba1c6f008706ea742f8557822b7e136db2aaba5319e39d032a079f5d538827"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_GWStaticRoute_Content.asp",
+      "size": 34992,
+      "sha256": "feb369089e0dd530483593970d908067859424870b32c5aa606d63c9c60c03f5"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_IPTV_Content.asp",
+      "size": 23574,
+      "sha256": "be223622244148e1dcdaf77a845f2835ab20a31f002fb2193689ae549500f284"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_IPv6_Content.asp",
+      "size": 32319,
+      "sha256": "f26239d0c72bd6abc805875f29fa611df51666cabb09c6c8e729c2422b09a097"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_KeywordFilter_Content.asp",
+      "size": 10933,
+      "sha256": "ec52ab0bb948b67e289f2bff07bb2c5bf9f5aad62d6e2a130d8f44c95dc2761b"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_LAN_Content.asp",
+      "size": 14554,
+      "sha256": "4617c3d2e727eddde7fa435e74c6f7921c534969715ec5c9f50239fa201d3d74"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_MACFilter_Content.asp",
+      "size": 9760,
+      "sha256": "f0963e97bc8d27aca4fdfa327b9fe3559998fc75d4d292e26bf2c92e01686c4e"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_NATPassThrough_Content.asp",
+      "size": 9553,
+      "sha256": "174c0de6da60064075e7df289c61918a83319e0a34a9a66fa458f0db14cf5c33"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_PortTrigger_Content.asp",
+      "size": 14250,
+      "sha256": "1e4983272bde0d586083d98c5a3a15ad6a1acbe2ed25d9dbf1befcde5be7d607"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_Privacy.asp",
+      "size": 9482,
+      "sha256": "5d71ca556aaec9acb126c5e49120b2ec24a66405e4a68091e2ca9868c5e1777f"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_QOSUserPrio_Content.asp",
+      "size": 25757,
+      "sha256": "a66d19e9dcb14ed5771e2ce3060088e7996cf0596f7bd845d6b5a76182d61db6"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_QOSUserRules_Content.asp",
+      "size": 35241,
+      "sha256": "2d06e4c5097ad085e81cb2d118fda89eb61d7706457dbb872c2d279c1135c9be"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_SettingBackup_Content.asp",
+      "size": 9186,
+      "sha256": "564ac663903b88e6732aab1deee513cc05364c5bcb4a02de76495caff4420c55"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_SwitchCtrl_Content.asp",
+      "size": 6471,
+      "sha256": "b8fcfb80255b675bd2dad320f3e9e540fbf7cbf0b6de0a5c0ecb768cdd846188"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_System_Content.asp",
+      "size": 78696,
+      "sha256": "7b4bcffef1ce0aa0503bee00cc7130f26bf6f797a3c0fcd4a39e471310fc055b"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_URLFilter_Content.asp",
+      "size": 16466,
+      "sha256": "0897be4031a850af4e5aa6799f804729338a9d9b85231ac7206cbf20ceefef90"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_VirtualServer_Content.asp",
+      "size": 48978,
+      "sha256": "bcf33c7fdefe64e9cfd4161b5135ff76d165b37edc1d9c918d4f179325323e06"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_WANPort_Content.asp",
+      "size": 49776,
+      "sha256": "61944811efcef0023e2905c48648ab965c94547ceac493d0889ca67cb66efad6"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_WAdvanced_Content.asp",
+      "size": 48161,
+      "sha256": "f5bb0eee780b3aa5fe472eba9884e4eb15d802d45fa43586e76ea5e91f762cfb"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_WMode_Content.asp",
+      "size": 23125,
+      "sha256": "6384a5a82328b34ef3d725c4e5553f6ae4518723725408d6c2745c4358acb0f0"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_WSecurity_Content.asp",
+      "size": 8992,
+      "sha256": "1f9c331dea263f7ecf682e17510f982a48f594710b30850cb43dc84f2c954335"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_WWPS_Content.asp",
+      "size": 24092,
+      "sha256": "b6fbaea2e1bc04ecf969ff851908cc353fa56cc189406c8ae08b5a63a7213eb2"
+    },
+    {
+      "path": "boaroot/cgi-bin/Advanced_Wireless_Content.asp",
+      "size": 30329,
+      "sha256": "03ab6cdfce15a510ec7b4bc13b1adb3599f3123ffc875d918e1a76ca26ce264b"
+    },
+    {
+      "path": "boaroot/cgi-bin/Bandwidth_Limiter.asp",
+      "size": 19973,
+      "sha256": "498acbe197a426048318d749fcf02f53b973c5ab946b8a1f66b66f9f0da87a1d"
+    },
+    {
+      "path": "boaroot/cgi-bin/Feedback_Info.asp",
+      "size": 11938,
+      "sha256": "24e4a9a173525d297eacd85f32a7a4831374524603ccb07d9f3072fe72b31191"
+    },
+    {
+      "path": "boaroot/cgi-bin/Guest_network.asp",
+      "size": 66335,
+      "sha256": "afd65b131b8104ea5bc3be1907351409479aaa9b8f9da37fce9aa81732f4f49d"
+    },
+    {
+      "path": "boaroot/cgi-bin/Logout.asp",
+      "size": 355,
+      "sha256": "4881f2edfd7af13fa7b7de2d9e4c57729b2ffd07411a90eb99b7a6fb840c3f72"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_AccessLog_Content.asp",
+      "size": 14822,
+      "sha256": "67c02642a180f1a4ef423b9a6f22bc5560ad071fa619e8bcb781a22451e04b67"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_AdslStatus_Content.asp",
+      "size": 26102,
+      "sha256": "1b76a3c5802c86fe77512ce6e4c93005a88b9dc33dc497061dbb885b01d59578"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_Analysis_Content.asp",
+      "size": 11485,
+      "sha256": "ec11a6371234524253b4dabc614252114479348aa3bc75a277f7e5b5c4476c92"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_ConnStatus_Content.asp",
+      "size": 3885,
+      "sha256": "ac54178a6c3b58390bb8b133ddc2dfbd174c702a06d3cc1a6651b34ade51c909"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_DHCPStatus_Content.asp",
+      "size": 29663,
+      "sha256": "8452b76df8b9e3e9d8e64cf2009732c96bb495290e0f9de54007f9103d119bcd"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_IPTStatus_Content.asp",
+      "size": 3989,
+      "sha256": "ddc8a92951cf594d07f8ecc5c54f2551d337415b37043de720f292912c402444"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_LogStatus_Content.asp",
+      "size": 7132,
+      "sha256": "2d0bb9387f4758bfc21ee29dca155cb3a79f64dbd266b0429e5708dbfc1262f8"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_Netstat_Content.asp",
+      "size": 14326,
+      "sha256": "3cf0b44731ea8cd272b79b44767ecac7657347fb4ca1faa5332fd3a878dd4f1a"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_RouteStatus_Content.asp",
+      "size": 3948,
+      "sha256": "885155b5134e89b917c67e33c30d50d44ea5a4aa370b6556616f7964ca21d7fe"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_Spectrum_Content.asp",
+      "size": 9478,
+      "sha256": "4ee030f9b296c280f5b9c2a3b388b0d0eb4c8ddf284036db82518af9b45695c1"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_WOL_Content.asp",
+      "size": 37535,
+      "sha256": "978a3612410cdce97d853744ea24b8308453fb6b804d1944fd0c977b034fbf96"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_WStatus_Content.asp",
+      "size": 3918,
+      "sha256": "615b8626f9cd065ee9136c9a98d9701ae04557325961e789239578eaec2b7e93"
+    },
+    {
+      "path": "boaroot/cgi-bin/Main_WebHistory_Content.asp",
+      "size": 15084,
+      "sha256": "85a955dd4c9c90056fa5e66bb9e79658f6c5b2703cdbbb51db0a20c801268d9b"
+    },
+    {
+      "path": "boaroot/cgi-bin/ParentalControl.asp",
+      "size": 42088,
+      "sha256": "4978c9fa721f1e1a1204558765e2768281edfa621bfd74d74b720eff76bc60a9"
+    },
+    {
+      "path": "boaroot/cgi-bin/QoS_EZQoS.asp",
+      "size": 21976,
+      "sha256": "19e873198c1605497fe6a2ef4bdc4f137e0c14e9e01ce04d9fe51650500bb7d0"
+    },
+    {
+      "path": "boaroot/cgi-bin/Wireless_Content_redirect.asp",
+      "size": 1505,
+      "sha256": "7209cf90cc46a4d3527ca647b6e4b8427a84382f6fc89df5f5766da7f9939407"
+    },
+    {
+      "path": "boaroot/cgi-bin/blocking.asp",
+      "size": 22625,
+      "sha256": "9733e2ec6088f56d42227f413075a40906fcf904d04319358e29e0136aa7f4a4"
+    },
+    {
+      "path": "boaroot/cgi-bin/device-map/DSL_dashboard.asp",
+      "size": 15707,
+      "sha256": "cfce5db73a63de8672b5157402a02c95131511ef7c1bbd2f0fa0418adff6190b"
+    },
+    {
+      "path": "boaroot/cgi-bin/device-map/clients.asp",
+      "size": 19736,
+      "sha256": "7a697839d031added01f3ae1f374db70364268f0fc83d50ed9543bb8f25cffd6"
+    },
+    {
+      "path": "boaroot/cgi-bin/device-map/internet.asp",
+      "size": 36296,
+      "sha256": "54218a20b52f377128c28385dab9ed4121695a5f7869b894a62464495ee638a3"
+    },
+    {
+      "path": "boaroot/cgi-bin/device-map/remote.asp",
+      "size": 2816,
+      "sha256": "a5271686fa053153d53240c4c299c4137946492ec78579eb68830c39b4b23f90"
+    },
+    {
+      "path": "boaroot/cgi-bin/device-map/router.asp",
+      "size": 25037,
+      "sha256": "c001343666467266b8f46a5ca864355fefe35c84a6d7931267d3c1fccb19f615"
+    },
+    {
+      "path": "boaroot/cgi-bin/device-map/router_status.asp",
+      "size": 17927,
+      "sha256": "c8674d15e8f2a4af479630caa57a1d65d78a9e9447cf9f168f4a4afa697f92bd"
+    },
+    {
+      "path": "boaroot/cgi-bin/error_page.asp",
+      "size": 13910,
+      "sha256": "4c988d8d64fb3bf970dd9facf4bd5ab542987e446458955711165de6131a956b"
+    },
+    {
+      "path": "boaroot/cgi-bin/get_release_note0.asp",
+      "size": 871,
+      "sha256": "1f59b7665605b92ba316b75bc7d0816e5f790c062a3fde087729f601051885bd"
+    },
+    {
+      "path": "boaroot/cgi-bin/get_release_note1.asp",
+      "size": 871,
+      "sha256": "0c72ea2b8822244f1a94d585186e57024100229ee2ac42a7220657add2ea0fdd"
+    },
+    {
+      "path": "boaroot/cgi-bin/index2.asp",
+      "size": 42301,
+      "sha256": "feb8119486e63dd5a32b4e2c432b8c8d0b0abaebf59cbd128bcab769db75a132"
+    },
+    {
+      "path": "boaroot/cgi-bin/language_change.asp",
+      "size": 917,
+      "sha256": "8866227473dc7c5c7b6eca3b8439d97ac33befde497ae372c0dc17216daa8e0d"
+    },
+    {
+      "path": "boaroot/cgi-bin/mod_login.asp",
+      "size": 1507,
+      "sha256": "a3ab478a20ca0e0c311aa43bd25bdc1d9977386a321b5555877a2563be8c6fe0"
+    },
+    {
+      "path": "boaroot/cgi-bin/qis/QIS_process.asp",
+      "size": 21546,
+      "sha256": "966b7e4e24811f351133c54c8530b3d7f13c7eaf8a3605764625969a3b2c84aa"
+    },
+    {
+      "path": "boaroot/cgi-bin/start_apply.asp",
+      "size": 18329,
+      "sha256": "00574e3f0a61f9ad3db75e511c3a508dbe3c4489d6317ed1a28ddb4504b79280"
+    },
+    {
+      "path": "boaroot/html/opendsl/legacy.css",
+      "size": 286533,
+      "sha256": "09efb443b029b953406042d5f65888fb0d2569fc47bd86a753e6b09066cc1eff"
+    },
+    {
+      "path": "boaroot/html/opendsl/legacy.js",
+      "size": 117578,
+      "sha256": "628952faac4d852540935315f054337fb81f27060e8502337c265fa893ef23c9"
+    },
+    {
+      "path": "boaroot/html/opendsl/gateway.svg",
+      "size": 307,
+      "sha256": "0484a89b9676b7c0c22dc7eeece080e9a3038e1aa1367c6a96da79154b5dd9cb"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/activity.svg",
+      "size": 193,
+      "sha256": "a5efd0b54d655a24b1ad149f1b20d85f9d1829917a73f0e3f1c9b91d116891a6"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/chevron.svg",
+      "size": 183,
+      "sha256": "132fe752fc81089e6d86936e602e4e56992d8674b3c8934eba30c8176bcb911d"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/devices.svg",
+      "size": 288,
+      "sha256": "764930052b628bdeeac0259a40238080307580e312508001cb9b61f02f37d7fc"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/eye.svg",
+      "size": 246,
+      "sha256": "61a7a1caa50239be2724536777dcc74ac889417c36f290ce6da7ce44257ac3c9"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/firewall.svg",
+      "size": 209,
+      "sha256": "e4714f711f8a47aef3ddebfa8d40255b6ce05fefe9ff94c93e7481c67d4f1930"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/gateway.svg",
+      "size": 306,
+      "sha256": "c24b4e3ab27e24041d14a73e82c25b0b81078ecd2a0ee1569622d88cc9ef0612"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/guests.svg",
+      "size": 266,
+      "sha256": "8e34aa94ccae77e7a95d437508bb0ee2c0c259059541a022eb8176c86651f89c"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/info.svg",
+      "size": 219,
+      "sha256": "32df6a6de7ff8b4871bfb970e7616c27dee4c26038d820499676ce55e9699281"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/internet.svg",
+      "size": 273,
+      "sha256": "a3cb9a58ec646078b1599ac2d01f4f3d4b3001e165cbd44f58fe7e0a8ed6ddc1"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/key.svg",
+      "size": 230,
+      "sha256": "41253507e3d8acad99482fa9f1b466793788e834718389182deae20038dea41a"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/lan.svg",
+      "size": 206,
+      "sha256": "75574d0385ccc760f2a70255d8ab4c6ff2a14441937178945a7dc7848392789a"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/lock.svg",
+      "size": 244,
+      "sha256": "9ffaf9e3fca7bd7f7ee71c15924b1608fa43c41f0b6887de6560be4cc291d818"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/logout.svg",
+      "size": 204,
+      "sha256": "9303cd54c579cc06a8afe8793364fbb3e4acfb90fa2636fe22b3b5697634a81f"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/logs.svg",
+      "size": 240,
+      "sha256": "427dc4c4edbbbec83c957f7ee1074e64828a10b2fadb92af8c616b7b77c36718"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/menu.svg",
+      "size": 194,
+      "sha256": "41deccec431d25ae26975a77424383e03ff095c0f1b588944c49a20a67ec4ed5"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/network.svg",
+      "size": 335,
+      "sha256": "ab58e9621096997d537866eea466da69d5fdc12a5694fb59333b987410e0510a"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/power.svg",
+      "size": 198,
+      "sha256": "ae099bf8a96bb51ef24ffb246a8b833d14177c7b73b9b415340b44d07199bff7"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/privacy.svg",
+      "size": 293,
+      "sha256": "838e6b63928478e9bdf28d1395581746de36f3cec56525d93c5dd5b726207555"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/reboot.svg",
+      "size": 201,
+      "sha256": "ee72cab63e4532aac2229bf0ffaa73a558951dcde5d60093449d407bb8c1c9bf"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/settings.svg",
+      "size": 316,
+      "sha256": "3932f75cd1be620811ca55248f26e5c0acb510e933508f34bd277d49c39767ac"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/setup.svg",
+      "size": 248,
+      "sha256": "a7fe74fa8cb1645d7ec8b3bc75b34fdcd6259a2310abb48633b7b98ba2226491"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/tools.svg",
+      "size": 344,
+      "sha256": "b7f0105c791f080080be01161844d6b27b1714231c000bf98805fda9bfbdc546"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/traffic.svg",
+      "size": 205,
+      "sha256": "b8a42ebce64ecac852a82c1f05dfe6e2fee8ca66127cef0935f370cf8b864c04"
+    },
+    {
+      "path": "boaroot/html/opendsl/symbols/wifi.svg",
+      "size": 294,
+      "sha256": "50f18f6d301ef46ea435d94593a2ded32551d22243c97f3fc972881af4ff1e75"
+    }
+  ],
+  "host_checks": {
+    "browser_grouped_checks_passed": 12,
+    "literal_links_resolved": true,
+    "index_first_run_branch_unchanged": true,
+    "javascript_syntax": "passed"
+  },
+  "legacy_theme": "87 reviewed native HTML documents; shared CSS and event-driven presentation enhancement; no network I/O; see legacy-contracts.json"
+}

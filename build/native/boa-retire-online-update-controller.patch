@@ -1,0 +1,60 @@
+From: OpenDSL build layer
+Subject: [PATCH] Retire online-update actions at the native controller boundary
+
+Review A01: appDo_rc_service ignored the exit status of the retired
+/usr/script/webs_{update,upgrade}.sh helpers and still ran the service-stop,
+System_Entry.upgrade_fw and commit machinery for a failed download. Retire
+the actions at the controller: a nonzero guard result returns immediately,
+before any service-stop, signal, upgrade-state or commit/flash action. The
+guards themselves (overlays/security) write no WebCustom_Entry state,
+so retirement can never poison the next manual local upload.
+
+Recheck C04: the retired branches now return the caller's no-change result
+(0) instead of the "modified/running service" value 2, so do_apply_cgi does
+not emit MODIFIED/RUN SERVICE nor call tcapi_save() for a retired-only
+request; mixed requests still produce their own caller-side results.
+
+--- a/apps/public/boa-asp/src/asp/asp_handler.c
++++ b/apps/public/boa-asp/src/asp/asp_handler.c
+@@ -9264,8 +9264,19 @@
+ 		}
+ 		/* [SET] [Firmware Update] download fw server info */
+ 		else if(!strcmp(rc_service, "start_webs_update")) {
+-			eval("/usr/script/webs_update.sh");
+-			app_method_hit = 2;
++			if(eval("/usr/script/webs_update.sh") == 0) {
++				app_method_hit = 2;
++			}
++			else {
++				/* OpenDSL: online updates are retired. A nonzero guard
++				   result means retirement, never success: return the
++				   caller's no-change result here, before any download,
++				   service-stop, upgrade-state or flash/commit action and
++				   before the caller's tcapi_save() path. The ordinary
++				   local upload path keeps its own native validation. */
++				_dprintf("[AiHome] appDo_rc_service: online update retired\n");
++				return 0;
++			}
+ 		}
+ 		else if(!strcmp(rc_service, "restart_wireless")) {
+ 			char *argv[] = { "/userfs/bin/tcapi", "commit", "WLan", NULL };
+@@ -9277,7 +9288,18 @@
+ 		}
+ 		/* [SET] [General] Firmware Upgrade */
+ 		else if(!strcmp(rc_service, "start_webs_upgrade")) {
+-			eval("/usr/script/webs_upgrade.sh");
++			if(eval("/usr/script/webs_upgrade.sh") != 0) {
++				/* OpenDSL: online downloads are retired. A nonzero guard
++				   result is retirement, not a state the next manual
++				   upload should read: return the caller's no-change
++				   result before the service-stop / upgrade-state /
++				   commit machinery below and before the caller's
++				   tcapi_save() path runs for this request. Mixed
++				   requests that contain real attribute or service
++				   changes keep their own caller-side result. */
++				_dprintf("[AiHome] appDo_rc_service: online upgrade retired\n");
++				return 0;
++			}
+ 			/*stop_service();*/
+ 			killall_tk("clean_cache.sh");
+ 			sleep(1);

@@ -1,0 +1,35 @@
+--- a/apps/public/rc/services.c
++++ b/apps/public/rc/services.c
+@@ -332,8 +332,8 @@
+ void
+ start_rstats()
+ {
+-	stop_rstats();
+-	xstart("rstats");
++	/* OpenDSL: keep this optional background monitor disabled on every entry path. */
++	return;
+ }
+ 
+ #ifdef RTCONFIG_SPECTRUM
+@@ -345,8 +345,8 @@
+ 
+ void start_spectrum(void)
+ {
+-	stop_spectrum();
+-	xstart("spectrum");
++	/* OpenDSL: keep this optional background monitor disabled on every entry path. */
++	return;
+ }
+ #endif
+ 
+@@ -359,8 +359,8 @@
+ 
+ void start_sysstate(void)
+ {
+-	stop_sysstate();
+-	xstart("sysstate");
++	/* OpenDSL: keep this optional background monitor disabled on every entry path. */
++	return;
+ }
+ #endif
+ 
